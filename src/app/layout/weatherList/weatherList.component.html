@@ -18,13 +18,13 @@
                                 <th>Daily </th>
                             </tr>
                         </thead>
-                        <tbody  *ngFor="let customer of pageOfItems"  >
+                        <tbody  *ngFor="let city of pageOfItems"  >
                             <tr>
-                                <td>{{customer.name}}</td>
-                                <td>{{customer.lat}}</td>
-                                <td>{{customer.lon}}</td>
-                                <td (click)="onSelect(customer,'Hourly')" style="cursor: pointer;color: blue;">Show Data</td>
-                                <td (click)="onSelect(customer,'Daily')" style="cursor: pointer;color: blue;">Show Data</td>
+                                <td>{{city.name}}</td>
+                                <td>{{city.lat}}</td>
+                                <td>{{city.lon}}</td>
+                                <td (click)="onSelect(city,'Hourly')" style="cursor: pointer;color: blue;">Show Data</td>
+                                <td (click)="onSelect(city,'Daily')" style="cursor: pointer;color: blue;">Show Data</td>
                             </tr>
                         </tbody>
                     </table>

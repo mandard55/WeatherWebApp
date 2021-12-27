@@ -28,8 +28,8 @@ export class WeatherListComponent implements OnInit {
     }
 
     //show selected location hourly and daily data
-    onSelect(customer: WeatherListComponent,option): void {
-        this.selectedCity = customer;
+    onSelect(city: WeatherListComponent,option): void {
+        this.selectedCity = city;
         if(option == 'Hourly'){
          this.http.get<any>('https://api.openweathermap.org/data/2.5/onecall?lat='+this.selectedCity.lat+'&lon='+this.selectedCity.lon+'&exclude=minutely&appid=e93ea4b0201bd57e60f0673c24e3fccd').subscribe(data => {
             this.hourlyData = data.hourly;
