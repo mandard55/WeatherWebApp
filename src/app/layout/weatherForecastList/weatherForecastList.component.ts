@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
+import { WeatherService } from "../weather.service";
 
 //import { CUSTOMERS } from '../../customers';
 @Component({
@@ -13,20 +12,34 @@ import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 export class WeatherForecastListComponent implements OnInit {
     selectedCity?: WeatherForecastListComponent;
     items = [];
-    pageOfItems: Array<any>;
+    public weatherForecastData: any;
+    public weatherData: any;
     hourlyData: any[] = [];
     lat: number;
     lon:number;
 
 
-    constructor(private http: HttpClient) { }
+    constructor(private weatherService: WeatherService) { }
     public isFullListDisplayed: boolean = false;
 
     //default weather forecast list posted by forecaster
     ngOnInit() {
-        this.http.get<any>('https://5c002505-2294-4571-a09f-187f73da9721.mock.pstmn.io/weatherList').subscribe(data => {
-            console.log("Data Recived List:- ", data);
-            this.pageOfItems = data;
+        this.weatherService.getWeatherForecastList().subscribe(data => {
+            this.weatherForecastData = data;
+            this.selectOption("Pune")
+            //this.weatherData = data;
         })
     }
+
+    selectOption(cityname) {
+        console.log("cityname",cityname);
+        let matches = [], i;
+        for (i = 0; i < this.weatherForecastData.length; i++) {
+          if(this.weatherForecastData[i]["name"].includes(cityname)) {
+            matches.push(this.weatherForecastData[i]);
+          }
+        }
+        this.weatherData = matches;
+      };
+
 }

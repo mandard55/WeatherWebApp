@@ -10,21 +10,40 @@
                 <!-- <div class="card-body table-responsive" style="overflow: auto;height: 500px;"> -->
                  <div class="card-body table-responsive"
                  style="overflow: auto;height: 300px;">
+                 <div class="col text-right" style="padding-bottom: 2%;">
+                    <div class="d-inline-block dropdown" placement="top-right">
+                        <select formControlName="weather" (change)="selectOption($event.target.value)"  class="form-control">
+                            <option>Pune</option>
+                            <option>Mumbai</option>
+                            <option>Kolkata</option>
+                            <option>Nagpur</option>
+                            <option>Satara</option>
+                        </select>
+                    </div>
+                </div>
                     <table class="table">
                         <thead>
                             <tr style="font-size: small;">
+                                <th>User Name</th>
                                 <th>City Name</th>
-                                <th>Latitude</th>
-                                <th>Longitude </th>
+                                <th>DateTime</th>
+                                <th>Comments </th>
 
                             </tr>
                         </thead>
-                        <tbody  *ngFor="let customer of pageOfItems"  >
+                        <tbody  *ngFor="let city of weatherData"  >
 
-                            <tr style="cursor: pointer;" [routerLink]="['/weatherDetails/',customer.id]">
-                                <td>{{customer.name}}</td>
-                                <td>{{customer.lat}}</td>
-                                <td>{{customer.lon}}</td>
+                            <tr style="cursor: pointer;" [routerLink]="['/weatherDetails/',city.name]">
+                                <td>{{city.username}}</td>
+                                <td>{{city.name}}</td>
+                                <td>{{city.Date}}</td>
+                                <td style="max-width: 518px;
+                                    display: inline-block;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    line-height: 15px;
+                                    position: relative;"><label>{{city.Description}}</label> <p style="color: blue;">Read more...</p></td>
                             </tr>
 
                         </tbody>

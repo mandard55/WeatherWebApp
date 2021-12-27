@@ -1,24 +1,35 @@
 <div [@routerTransition]>
     <div class="card-header" style="font-size: large;">
-        Weather forecast
+        Weather forecast details
     </div>
-    <div class="row">
+    <div class="row" >
 
         <div class="col-lg-1"></div>
-        <div class="col-lg-10">
-            <br/>
-            <h3>{{this.city}}</h3>
-            <label>{{this.date}}</label>
-            <h1 style="color: black;"><img class="wob_tci"  alt="Smoke" src="//ssl.gstatic.com/onebox/weather/64/fog.png" id="wob_tci" data-atf="1" data-frt="0"> {{this.temp}}°C</h1>
-            <div class="col-lg-4"><hr/>
-            </div>
-            <label>{{this.minmaxTemp}}</label>
-            <br/>
-            <label style="font-size: large;">{{ this.weather?.main}} ({{this.weather?.description}})</label>
-            <hr/>
-            <app-modal>Comment</app-modal>
+    <h3 style="padding-top: 2%;color: blue;">{{this.cityname}}</h3>
+    </div>
+    <div class="row"  *ngFor="let city of weatherData">
+
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10" style="padding-top: 2%;"  >
+            <h5>{{city.username}}</h5>
+            <label>{{city.Description}}</label>
+            <div class="col text-right" style="padding-bottom: 2%;">
+                <div class="d-inline-block dropdown" placement="top-right">
+                    {{city.Date}}
+            </div></div>
+
+
+          <hr/>
+
         </div>
+
         <div class="col-lg-1"></div>
 
       </div>
+      <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10" >
+      <app-modal>Comment</app-modal>
+      </div>
+    </div>
       </div>

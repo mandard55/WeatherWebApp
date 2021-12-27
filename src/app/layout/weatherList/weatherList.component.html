@@ -7,7 +7,13 @@
                     Listing of daily location data
                 </div>
               <div class="card-body table-responsive"
-                 style="overflow: auto;height: 300px;">
+                 infiniteScroll
+                 style="overflow: auto;height: 300px;"
+                 [infiniteScrollDistance]="0.2"
+                 [infiniteScrollThrottle]="300"
+                 (scrolled)="onScroll()"
+                 [infiniteScrollDisabled]="isFullListDisplayed"
+                 [scrollWindow]="false">
                     <table class="table">
                         <thead>
                             <tr style="font-size: small;">

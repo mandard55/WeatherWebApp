@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { HttpHeaders } from "@angular/common/http";
-import { HttpClient } from '@angular/common/http';
+import { WeatherService } from "../weather.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -39,18 +38,18 @@ export class DashboardComponent implements OnInit {
         {id: 1266285, name: 'Kolhāpur', "lon": 77.116669, "lat": 12.15 },
       ];
 
-    constructor(private http: HttpClient) {
+    constructor(private weatherService: WeatherService) {
        this.userData = this.citylist;
     }
 
     ngOnInit() {
         //For Landing page default location
-        this.http.get<any>('https://api.openweathermap.org/data/2.5/weather?id=1259229&appid=e93ea4b0201bd57e60f0673c24e3fccd').subscribe(data => {
+        this.weatherService.getWeatherSearchByCity(1259229).subscribe(data => {
             this.defaultCity = data;
-            this.weather = data.weather[0];
+            this.weather = data["weather"][0];
             var d = new Date();
             this.Date = d.toDateString();
-            this.temprature =  data.main;
+            this.temprature =  data["main"];
             this.temp = (this.temprature.temp - 273.15).toFixed(0)
         })
         this.selectOption("Hourly");
@@ -61,12 +60,12 @@ export class DashboardComponent implements OnInit {
         var cityname = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
         if(cityname != ''){
             let cityid = this.searchFromArray(this.userData, cityname);
-            this.http.get<any>('https://api.openweathermap.org/data/2.5/weather?id='+cityid[0]["id"]+'&appid=e93ea4b0201bd57e60f0673c24e3fccd').subscribe(data => {
+            this.weatherService.getWeatherSearchByCity(cityid[0]["id"]).subscribe(data => {
                 this.defaultCity = data;
-                this.weather = data.weather[0];
+                this.weather = data["weather"][0];
                 var d = new Date();
                 this.Date = d.toDateString();
-                this.temprature =  data.main;
+                this.temprature =  data["main"];
                 this.temp = (this.temprature.temp - 273.15).toFixed(0)
             })
             this.lat = cityid[0]["lat"] ;
@@ -106,8 +105,8 @@ export class DashboardComponent implements OnInit {
     selectOption(option)
     {
         if(option == 'Hourly'){
-         this.http.get<any>('https://api.openweathermap.org/data/2.5/onecall?lat='+this.lat+'&lon='+this.lon+'&exclude=minutely&appid=e93ea4b0201bd57e60f0673c24e3fccd').subscribe(data => {
-            this.hourlyData = data.hourly;
+            this.weatherService.getWeatherHourlyandDaily(this.lat,this.lon).subscribe(data => {
+                this.hourlyData = data["hourly"];
             let hourlyData = [], i;
             for (i = 0; i < 8; i++) {
                 var date = new Date(this.hourlyData[i]["dt"] * 1000);
@@ -118,8 +117,8 @@ export class DashboardComponent implements OnInit {
         })
         }
         else{
-            this.http.get<any>('https://api.openweathermap.org/data/2.5/onecall?lat='+this.lat+'&lon='+this.lon+'&exclude=minutely&appid=e93ea4b0201bd57e60f0673c24e3fccd').subscribe(data => {
-            this.hourlyData = data.daily;
+            this.weatherService.getWeatherHourlyandDaily(this.lat,this.lon).subscribe(data => {
+            this.hourlyData = data["daily"];
             let hourlyData = [], i;
             var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             for (i = 0; i < 8; i++) {

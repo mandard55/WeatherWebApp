@@ -13,7 +13,7 @@ const routes: Routes = [
                 loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
             },
             { path: 'weatherList', loadChildren: () => import('./weatherList/weatherList.module').then((m) => m.WeatherListModule) },
-            { path: 'weatherDetails/:id', loadChildren: () => import('./weatherDetails/weatherDetails.module').then((m) => m.WeatherDetailsModule) },
+            { path: 'weatherDetails/:name', loadChildren: () => import('./weatherDetails/weatherDetails.module').then((m) => m.WeatherDetailsModule) },
             { path: 'weatherForecastList', loadChildren: () => import('./weatherForecastList/weatherForecastList.module').then((m) => m.WeatherForecastListModule) },
         ]
     }
