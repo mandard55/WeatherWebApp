@@ -1,0 +1,40 @@
+<div [@routerTransition]>
+
+    <!-- <app-page-header [heading]="'Tables'" [icon]="'fa-table'"></app-page-header> -->
+    <div class="row" style="padding-top: 20px;">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header" style="font-size: large;">
+                    Listing of weather forecast post by forecaster
+                </div>
+                <!-- <div class="card-body table-responsive" style="overflow: auto;height: 500px;"> -->
+                 <div class="card-body table-responsive"
+                 style="overflow: auto;height: 300px;">
+                    <table class="table">
+                        <thead>
+                            <tr style="font-size: small;">
+                                <th>City Name</th>
+                                <th>Latitude</th>
+                                <th>Longitude </th>
+
+                            </tr>
+                        </thead>
+                        <tbody  *ngFor="let customer of pageOfItems"  >
+
+                            <tr style="cursor: pointer;" [routerLink]="['/weatherDetails/',customer.id]">
+                                <td>{{customer.name}}</td>
+                                <td>{{customer.lat}}</td>
+                                <td>{{customer.lon}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr/>
+
+
+</div>

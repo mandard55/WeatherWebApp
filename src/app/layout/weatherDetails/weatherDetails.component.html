@@ -1,0 +1,24 @@
+<div [@routerTransition]>
+    <div class="card-header" style="font-size: large;">
+        Weather forecast
+    </div>
+    <div class="row">
+
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+            <br/>
+            <h3>{{this.city}}</h3>
+            <label>{{this.date}}</label>
+            <h1 style="color: black;"><img class="wob_tci"  alt="Smoke" src="//ssl.gstatic.com/onebox/weather/64/fog.png" id="wob_tci" data-atf="1" data-frt="0"> {{this.temp}}°C</h1>
+            <div class="col-lg-4"><hr/>
+            </div>
+            <label>{{this.minmaxTemp}}</label>
+            <br/>
+            <label style="font-size: large;">{{ this.weather?.main}} ({{this.weather?.description}})</label>
+            <hr/>
+            <app-modal>Comment</app-modal>
+        </div>
+        <div class="col-lg-1"></div>
+
+      </div>
+      </div>

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-3">
+            <!-- Large modal -->
+            <div class="card-body">
+                <button (click)="open(content)" class="btn btn-primary">Comment</button>
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Comment</h4>
+                        <button (click)="d('Cross click')" aria-label="Close" class="close" type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <fieldset class="form-group">
+                            <label>Name :</label>
+                            <input class="form-control" placeholder="Enter name" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label>email :</label>
+                            <input class="form-control" placeholder="Enter email" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label>Contact no :</label>
+                            <input class="form-control" placeholder="Enter contact number" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label>Details :</label>
+                            <input class="form-control" placeholder="Enter details" />
+                        </fieldset>
+
+                        <div class="radio">
+                            <label>
+                                <input checked="" id="optionsRadios1" name="optionsRadios" type="button" value="Like" />
+                            </label>&nbsp;&nbsp;&nbsp;
+                            <label>
+                                <input id="optionsRadios2" name="optionsRadios" type="button" value="DisLike" />
+                            </label>
+                        </div>
+                        <div class="radio">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="c('Close click')" class="btn btn-secondary" type="button">Close</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
