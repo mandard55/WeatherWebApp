@@ -1,11 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
 import { WeatherService } from "../weather.service";
 @Component({
     selector: 'app-weatherList',
     templateUrl: './weatherList.component.html',
     styleUrls: ['./weatherList.component.scss'],
-    animations: [routerTransition()]
+
 })
 export class WeatherListComponent implements OnInit {
     selectedCity?: WeatherListComponent;
