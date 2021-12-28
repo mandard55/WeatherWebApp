@@ -12,7 +12,7 @@
                  style="overflow: auto;height: 300px;">
                  <div class="col text-right" style="padding-bottom: 2%;">
                     <div class="d-inline-block dropdown" placement="top-right">
-                        <select formControlName="weather" (change)="selectOption($event.target.value)"  class="form-control">
+                        <select formControlName="weather" title="filter" (change)="selectOption($event.target.value)"  class="form-control">
                             <option>Pune</option>
                             <option>Mumbai</option>
                             <option>Kolkata</option>
@@ -33,11 +33,11 @@
                         </thead>
                         <tbody  *ngFor="let city of weatherData"  >
 
-                            <tr style="cursor: pointer;" [routerLink]="['/weatherDetails/',city.name]">
+                            <tr  >
                                 <td>{{city.username}}</td>
                                 <td>{{city.name}}</td>
                                 <td>{{city.Date}}</td>
-                                <td style="max-width: 518px;
+                                <td [routerLink]="['/weatherDetails/',city.name]" style="max-width: 518px;cursor: pointer;
                                     display: inline-block;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
