@@ -24,15 +24,12 @@ export class WeatherForecastListComponent implements OnInit {
 
     //default weather forecast list posted by forecaster
     ngOnInit() {
-        this.weatherService.getWeatherForecastList().subscribe(data => {
-            this.weatherForecastData = data;
             this.selectOption("Pune")
-            //this.weatherData = data;
-        })
     }
 
     selectOption(cityname) {
-        console.log("cityname",cityname);
+    this.weatherService.getWeatherForecastList().subscribe(data => {
+        this.weatherForecastData = data;
         let matches = [], i;
         for (i = 0; i < this.weatherForecastData.length; i++) {
           if(this.weatherForecastData[i]["name"].includes(cityname)) {
@@ -40,6 +37,8 @@ export class WeatherForecastListComponent implements OnInit {
           }
         }
         this.weatherData = matches;
-      };
+    })
+    };
+
 
 }

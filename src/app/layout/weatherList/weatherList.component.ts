@@ -22,8 +22,12 @@ export class WeatherListComponent implements OnInit {
     constructor(private weatherService: WeatherService) { }
     public isFullListDisplayed: boolean = false;
 
-    //default weather List
     ngOnInit() {
+       this.getWeatherList();
+    }
+
+    //get weather list
+    getWeatherList(){
         this.weatherService.getWeatherList().subscribe(data => {
             this.items = data;
             const mappeddata = Object.keys(data).map(key => (data[key]));
@@ -31,6 +35,7 @@ export class WeatherListComponent implements OnInit {
         })
     }
 
+    //Pagination to load data when scroll end
     onScroll() {
         if (this.noOfItemsToShowInitially <= this.items.length) {
             this.noOfItemsToShowInitially += this.itemsToLoad;

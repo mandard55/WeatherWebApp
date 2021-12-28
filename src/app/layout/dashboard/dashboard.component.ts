@@ -44,6 +44,12 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         //For Landing page default location
+        this.getDefaultLocationData();
+        this.selectOption("Hourly");
+    }
+
+    //get default location data
+    getDefaultLocationData(){
         this.weatherService.getWeatherSearchByCity(1259229).subscribe(data => {
             this.defaultCity = data;
             this.weather = data["weather"][0];
@@ -52,7 +58,6 @@ export class DashboardComponent implements OnInit {
             this.temprature =  data["main"];
             this.temp = (this.temprature.temp - 273.15).toFixed(0)
         })
-        this.selectOption("Hourly");
     }
 
     //get city info search by user
@@ -74,7 +79,7 @@ export class DashboardComponent implements OnInit {
         }
     }
 
-    getUserIdsFirstWay($event) {
+    getCityIdsFirstWay($event) {
         var cityname = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
         this.cityList1 = [];
 
@@ -85,7 +90,9 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+    //auto complete city list name when user enter 2 letter of city name
     searchFromArray(arr, cityname) {
+        cityname = cityname[0].toUpperCase() + cityname.substr(1).toLowerCase();
         let matches = [], i;
         for (i = 0; i < arr.length; i++) {
           if(arr[i]["name"].includes(cityname)) {
