@@ -24,14 +24,14 @@ export class WeatherDetailsComponent implements OnInit {
 
     selectOption(cityname) {
         this.weatherService.getWeatherForecastList().subscribe(data => {
-        const mappeddata = Object.keys(data).map(key => (data[key]));
-        let matches = [], i;
-        for (i = 0; i < mappeddata.length; i++) {
-          if(mappeddata[i]["name"].includes(cityname)) {
-            matches.push(mappeddata[i]);
-          }
-        }
-        this.weatherData = matches;
+            const mappeddata = Object.keys(data).map(key => (data[key]));
+            let matches = [], i;
+            for (i = 0; i < mappeddata.length; i++) {
+                if(mappeddata[i]["name"].includes(cityname)) {
+                    matches.push(mappeddata[i]);
+                }
+            }
+            this.weatherData = matches;
         })
 
       };

@@ -39,8 +39,8 @@ export class WeatherListComponent implements OnInit {
         if (this.noOfItemsToShowInitially <= this.items.length) {
             this.noOfItemsToShowInitially += this.itemsToLoad;
             this.pageOfItems = this.items.slice(0, this.noOfItemsToShowInitially);
-            console.log("scrolled");
-        } else {
+        }
+        else {
             this.isFullListDisplayed = true;
         }
     }
@@ -50,31 +50,31 @@ export class WeatherListComponent implements OnInit {
         this.selectedCity = city;
         if(option == 'Hourly'){
             this.weatherService.getWeatherHourlyandDaily(this.selectedCity.lat,this.selectedCity.lon).subscribe(data => {
-            this.hourlyData = data["hourly"];
-            let hourlyData = [], i;
-            for (i = 0; i < 8; i++) {
-                var date = new Date(this.hourlyData[i]["dt"] * 1000);
-                var temp = (this.hourlyData[i]["temp"] - 273.15).toFixed(0)
-                hourlyData.push({time:date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),temp:temp+"°C"});
-            }
-            this.hourlyData = hourlyData;
-        })
+                this.hourlyData = data["hourly"];
+                let hourlyData = [], i;
+                for (i = 0; i < 8; i++) {
+                    var date = new Date(this.hourlyData[i]["dt"] * 1000);
+                    var temp = (this.hourlyData[i]["temp"] - 273.15).toFixed(0)
+                    hourlyData.push({time:date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),temp:temp+"°C"});
+                }
+                this.hourlyData = hourlyData;
+            })
         }
-        else{
+        else
+        {
             this.weatherService.getWeatherHourlyandDaily(this.selectedCity.lat,this.selectedCity.lon).subscribe(data => {
-            this.hourlyData = data["daily"];
-            let hourlyData = [], i;
-            var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            for (i = 0; i < 8; i++) {
-                var minTemp = this.hourlyData[i]["temp"]
-                var date = new Date(this.hourlyData[i]["dt"] * 1000);
-                var min = (minTemp.min - 273.15).toFixed(0)
-                var max = (minTemp.max - 273.15).toFixed(0)
-                hourlyData.push({time:days[date.getDay()]+" "+ date.getUTCFullYear(),minTemp:min+'°C '+max+'°C',});
-            }
-            this.hourlyData = hourlyData;
-        })
+                this.hourlyData = data["daily"];
+                let hourlyData = [], i;
+                var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                for (i = 0; i < 8; i++) {
+                    var minTemp = this.hourlyData[i]["temp"]
+                    var date = new Date(this.hourlyData[i]["dt"] * 1000);
+                    var min = (minTemp.min - 273.15).toFixed(0)
+                    var max = (minTemp.max - 273.15).toFixed(0)
+                    hourlyData.push({time:days[date.getDay()]+" "+ date.getUTCFullYear(),minTemp:min+'°C '+max+'°C',});
+                }
+                this.hourlyData = hourlyData;
+            })
         }
-
       }
 }

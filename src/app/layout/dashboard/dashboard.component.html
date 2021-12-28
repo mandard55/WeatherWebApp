@@ -3,8 +3,7 @@
     <div class="row">
         <div class="col-xl-2 col-lg-6"></div>
         <div class="col-xl-6 col-lg-6" style="max-height: 100%;">
-            <!-- <input matInput placeholder="Search employee" [matAutocomplete]="auto" [formControl]="employeeCtrl"> -->
-        <input type="text" class="form-control mr-sm-1" (keyup)="getCityIdsFirstWay($event)" placeholder="Enter City Name" id="userIdFirstWay"  />
+            <input type="text" class="form-control mr-sm-1" (keyup)="getCityIdsFirstWay($event)" placeholder="Enter City Name" id="cityname"  />
             <option style="cursor:pointer; " class="dropdown-item" *ngFor="let item of citynames"  (click)="SelectItem(item.name)" [value]="item">{{item.name}}</option>
         </div>
         <div class="col-xl-4 col-lg-6">

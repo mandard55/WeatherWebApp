@@ -18,27 +18,24 @@ export class WeatherForecastListComponent implements OnInit {
     lat: number;
     lon:number;
 
-
     constructor(private weatherService: WeatherService) { }
     public isFullListDisplayed: boolean = false;
 
     //default weather forecast list posted by forecaster
     ngOnInit() {
-            this.selectOption("Pune")
+        this.selectOption("Pune")
     }
 
     selectOption(cityname) {
-    this.weatherService.getWeatherForecastList().subscribe(data => {
-        this.weatherForecastData = data;
-        let matches = [], i;
-        for (i = 0; i < this.weatherForecastData.length; i++) {
-          if(this.weatherForecastData[i]["name"].includes(cityname)) {
-            matches.push(this.weatherForecastData[i]);
-          }
-        }
-        this.weatherData = matches;
-    })
+        this.weatherService.getWeatherForecastList().subscribe(data => {
+            this.weatherForecastData = data;
+            let matches = [], i;
+            for (i = 0; i < this.weatherForecastData.length; i++) {
+                if(this.weatherForecastData[i]["name"].includes(cityname)) {
+                    matches.push(this.weatherForecastData[i]);
+                }
+            }
+            this.weatherData = matches;
+        })
     };
-
-
 }
