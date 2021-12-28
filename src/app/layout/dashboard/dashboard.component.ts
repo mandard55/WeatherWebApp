@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { WeatherService } from "../weather.service";
+import {citylist} from "./citylist";
 
 @Component({
     selector: 'app-dashboard',
@@ -9,9 +10,7 @@ import { WeatherService } from "../weather.service";
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
-    public alerts: Array<any> = [];
-    public sliders: Array<any> = [];
-    public cityList1;
+    public citynames;
     public defaultCity;
     public weather;
     public temp;
@@ -24,22 +23,9 @@ export class DashboardComponent implements OnInit {
     lastkeydown1: number = 0;
 
     //city names list for AutoComplete
-    public citylist = [
-        {id: 1259229, name: 'Pune' ,"lon": 78.583328, "lat": 13.36667},
-        {id: 1275339,name: 'Mumbai',"lon": 72.8479, "lat": 19.0144 },
-        {id: 1275004,  name: 'Kolkata' ,"lon": 73.762589, "lat": 15.51807},
-        {id: 1262180, name: 'Nagpur', "lon": 81.133331, "lat": 26.6166 },
-        {id: 1257055, name: 'Satara' , "lon": 80.833336, "lat": 24.583332},
-        {id: 1957309, name: 'Sangali' , "lon": 122.161392, "lat": 7.03222},
-        {id: 1277333, name: 'Bengaluru', "lon": 78.23333, "lat": 15.31667 },
-        {id: 1259223, name: 'Punjab', "lon": 77.199997, "lat": 11.35 },
-        {id: 1261731, name: 'Nashik' , "lon": 74.73333, "lat": 26.299999},
-        {id: 1262253, name: 'Nagar' , "lon": 77.166672, "lat": 32.116669},
-        {id: 1266285, name: 'Kolhāpur', "lon": 77.116669, "lat": 12.15 },
-      ];
 
     constructor(private weatherService: WeatherService) {
-       this.userData = this.citylist;
+       this.userData = citylist;
     }
 
     ngOnInit() {
@@ -81,11 +67,11 @@ export class DashboardComponent implements OnInit {
 
     getCityIdsFirstWay($event) {
         var cityname = (<HTMLInputElement>document.getElementById('userIdFirstWay')).value;
-        this.cityList1 = [];
+        this.citynames = [];
 
         if (cityname.length > 2) {
           if ($event.timeStamp - this.lastkeydown1 > 200) {
-             this.cityList1 = this.searchFromArray(this.userData, cityname);
+             this.citynames = this.searchFromArray(this.userData, cityname);
           }
         }
     }
@@ -105,7 +91,7 @@ export class DashboardComponent implements OnInit {
     //select Auto Complete list city name
     SelectItem(item) {
         (<HTMLInputElement>document.getElementById("userIdFirstWay")).value = item;
-          this.cityList1 =[];
+          this.citynames =[];
     }
 
     //Show hourly and daily filter data
