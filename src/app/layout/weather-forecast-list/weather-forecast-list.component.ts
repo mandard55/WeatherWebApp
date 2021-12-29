@@ -4,9 +4,9 @@ import { WeatherService } from "../weather.service";
 
 //import { CUSTOMERS } from '../../customers';
 @Component({
-    selector: 'app-weatherForecastList',
-    templateUrl: './weatherForecastList.component.html',
-    styleUrls: ['./weatherForecastList.component.scss'],
+    selector: 'app-weather-forecast-list',
+    templateUrl: './weather-forecast-list.component.html',
+    styleUrls: ['./weather-forecast-list.component.scss'],
     animations: [routerTransition()]
 })
 export class WeatherForecastListComponent implements OnInit {
@@ -26,8 +26,8 @@ export class WeatherForecastListComponent implements OnInit {
         this.selectOption("Pune")
     }
 
-    selectOption(cityname) {
-        this.weatherService.getWeatherForecastList().subscribe(data => {
+    async selectOption(cityname) {
+        await this.weatherService.getWeatherForecastList().then(data => {
             this.weatherForecastData = data;
             let matches = [], i;
             for (i = 0; i < this.weatherForecastData.length; i++) {

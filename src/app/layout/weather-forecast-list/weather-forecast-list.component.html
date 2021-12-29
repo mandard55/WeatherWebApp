@@ -33,11 +33,11 @@
                         </thead>
                         <tbody  *ngFor="let city of weatherData"  >
 
-                            <tr  >
+                            <tr>
                                 <td>{{city.username}}</td>
                                 <td>{{city.name}}</td>
                                 <td>{{city.Date}}</td>
-                                <td [routerLink]="['/weatherDetails/',city.name]" style="max-width: 518px;cursor: pointer;
+                                <td  [routerLink]="['/weather-details/',city.name]" style="max-width: 518px;cursor: pointer;
                                     display: inline-block;
                                     overflow: hidden;
                                     text-overflow: ellipsis;

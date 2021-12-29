@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { WeatherService } from "../weather.service";
 @Component({
-    selector: 'app-weatherList',
-    templateUrl: './weatherList.component.html',
-    styleUrls: ['./weatherList.component.scss'],
+    selector: 'app-weather-list',
+    templateUrl: './weather-list.component.html',
+    styleUrls: ['./weather-list.component.scss'],
 
 })
 export class WeatherListComponent implements OnInit {
@@ -27,7 +27,7 @@ export class WeatherListComponent implements OnInit {
 
     //get weather list
     getWeatherList(){
-        this.weatherService.getWeatherList().subscribe(data => {
+        this.weatherService.getWeatherList().then(data => {
             this.items = data;
             const mappeddata = Object.keys(data).map(key => (data[key]));
             this.pageOfItems = mappeddata.slice(0, this.noOfItemsToShowInitially)
@@ -46,10 +46,10 @@ export class WeatherListComponent implements OnInit {
     }
 
     //show selected location hourly and daily data
-    onSelect(city: WeatherListComponent,option): void {
+   async onSelect(city: WeatherListComponent,option) {
         this.selectedCity = city;
         if(option == 'Hourly'){
-            this.weatherService.getWeatherHourlyandDaily(this.selectedCity.lat,this.selectedCity.lon).subscribe(data => {
+            await this.weatherService.getWeatherHourlyandDaily(this.selectedCity.lat,this.selectedCity.lon).then(data =>{
                 this.hourlyData = data["hourly"];
                 let hourlyData = [], i;
                 for (i = 0; i < 8; i++) {
@@ -58,11 +58,11 @@ export class WeatherListComponent implements OnInit {
                     hourlyData.push({time:date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),temp:temp+"°C"});
                 }
                 this.hourlyData = hourlyData;
-            })
+            });
         }
         else
         {
-            this.weatherService.getWeatherHourlyandDaily(this.selectedCity.lat,this.selectedCity.lon).subscribe(data => {
+            await this.weatherService.getWeatherHourlyandDaily(this.selectedCity.lat,this.selectedCity.lon).then(data => {
                 this.hourlyData = data["daily"];
                 let hourlyData = [], i;
                 var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

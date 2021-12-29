@@ -4,7 +4,7 @@ import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'dashboard',
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
@@ -12,9 +12,9 @@ const routes: Routes = [
                 path: 'dashboard',
                 loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
             },
-            { path: 'weatherList', loadChildren: () => import('./weatherList/weatherList.module').then((m) => m.WeatherListModule) },
-            { path: 'weatherDetails/:name', loadChildren: () => import('./weatherDetails/weatherDetails.module').then((m) => m.WeatherDetailsModule) },
-            { path: 'weatherForecastList', loadChildren: () => import('./weatherForecastList/weatherForecastList.module').then((m) => m.WeatherForecastListModule) },
+            { path: 'weather-list', loadChildren: () => import('./weather-list/weather-list.module').then((m) => m.WeatherListModule) },
+            { path: 'weather-details/:name', loadChildren: () => import('./weather-details/weather-details.module').then((m) => m.WeatherDetailsModule) },
+            { path: 'weather-forecast-list', loadChildren: () => import('./weather-forecast-list/weather-forecast-list.module').then((m) => m.WeatherForecastListModule) },
         ]
     }
 ];

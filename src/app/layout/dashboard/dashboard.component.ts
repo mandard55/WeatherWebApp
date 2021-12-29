@@ -11,7 +11,7 @@ import {citylist} from "./citylist";
 })
 export class DashboardComponent implements OnInit {
     public citynames;
-    public defaultCity;
+    defaultCity:any;
     public weather;
     public temp;
     public temprature;
@@ -33,33 +33,34 @@ export class DashboardComponent implements OnInit {
     }
 
     //get default location data
-    getDefaultLocationData(){
-        this.weatherService.getWeatherSearchByCity(1259229).subscribe(data => {
-            this.defaultCity = data;
-            this.weather = data["weather"][0];
+    async getDefaultLocationData(){
+         await this.weatherService.getWeatherSearchByCity(1259229).then(res=>{
+            this.defaultCity = res;
+            console.log("this.defaultCity",this.defaultCity);
+            this.weather = this.defaultCity["weather"][0];
             var d = new Date();
             this.Date = d.toDateString();
-            this.temprature =  data["main"];
+            this.temprature =  this.defaultCity["main"];
             this.temp = (this.temprature.temp - 273.15).toFixed(0)
-        })
+        });
     }
 
     //get city info search by user
-    SearchCityTemp(){
+    async SearchCityTemp(){
         var cityname = (<HTMLInputElement>document.getElementById('cityname')).value;
         if(cityname != ''){
             let cityid = this.searchFromArray(this.userData, cityname);
-            this.weatherService.getWeatherSearchByCity(cityid[0]["id"]).subscribe(data => {
-                this.defaultCity = data;
-                this.weather = data["weather"][0];
+            await this.weatherService.getWeatherSearchByCity(cityid[0]["id"]).then(res=>{
+                this.defaultCity = res;
+                this.weather =  this.defaultCity["weather"][0];
                 var d = new Date();
                 this.Date = d.toDateString();
-                this.temprature =  data["main"];
+                this.temprature =   this.defaultCity["main"];
                 this.temp = (this.temprature.temp - 273.15).toFixed(0)
-            })
-            this.lat = cityid[0]["lat"] ;
-            this.lon = cityid[0]["lon"] ;
-            this.selectOption("Hourly");
+                this.lat = cityid[0]["lat"] ;
+                this.lon = cityid[0]["lon"] ;
+                this.selectOption("Hourly");
+            });
         }
     }
 
@@ -82,6 +83,7 @@ export class DashboardComponent implements OnInit {
                 matches.push(arr[i]);
             }
         }
+        console.log("matches",matches);
         return matches;
       };
 
@@ -92,10 +94,11 @@ export class DashboardComponent implements OnInit {
     }
 
     //Show hourly and daily filter data
-    selectOption(option)
+    async selectOption(option)
     {
         if(option == 'Hourly'){
-            this.weatherService.getWeatherHourlyandDaily(this.lat,this.lon).subscribe(data => {
+            await this.weatherService.getWeatherHourlyandDaily(this.lat,this.lon).then(
+               data =>{
                 this.hourlyData = data["hourly"];
                 let hourlyData = [], i;
                 for (i = 0; i < 8; i++) {
@@ -104,11 +107,12 @@ export class DashboardComponent implements OnInit {
                     hourlyData.push({time:date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),temp:temp+"°C"});
                 }
                 this.hourlyData = hourlyData;
-            })
+               });
         }
         else
         {
-            this.weatherService.getWeatherHourlyandDaily(this.lat,this.lon).subscribe(data => {
+            await this.weatherService.getWeatherHourlyandDaily(this.lat,this.lon).then(
+                data =>{
                 this.hourlyData = data["daily"];
                 let hourlyData = [], i;
                 var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -120,7 +124,7 @@ export class DashboardComponent implements OnInit {
                     hourlyData.push({time:days[date.getDay()]+" "+ date.getUTCFullYear(),minTemp:min+'°C '+max+'°C',});
                 }
                 this.hourlyData = hourlyData;
-            })
+            });
         }
     }
 }

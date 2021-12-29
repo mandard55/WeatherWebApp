@@ -5,15 +5,18 @@ import { WeatherService } from "../weather.service";
 
 @Component({
     selector: 'app-form',
-    templateUrl: './weatherDetails.component.html',
-    styleUrls: ['./weatherDetails.component.scss'],
+    templateUrl: './weather-details.component.html',
+    styleUrls: ['./weather-details.component.scss'],
     animations: [routerTransition()]
 })
+
 export class WeatherDetailsComponent implements OnInit {
     public weatherForecastData: any;
     public weatherData: any;
     public cityname;
-    constructor(private weatherService: WeatherService,private route: ActivatedRoute) {}
+
+    constructor(private weatherService: WeatherService,private route: ActivatedRoute) {
+    }
 
     //show details of weather forecast using city id
     ngOnInit() {
@@ -22,15 +25,17 @@ export class WeatherDetailsComponent implements OnInit {
         this.selectOption(cityname)
     }
 
-    selectOption(cityname) {
-        this.weatherService.getWeatherForecastList().subscribe(data => {
+    async selectOption(cityname) {
+        await this.weatherService.getWeatherForecastList().then(data => {
             const mappeddata = Object.keys(data).map(key => (data[key]));
             let matches = [], i;
             for (i = 0; i < mappeddata.length; i++) {
                 if(mappeddata[i]["name"].includes(cityname)) {
+
                     matches.push(mappeddata[i]);
                 }
             }
+            console.log("matches",matches);
             this.weatherData = matches;
         })
 
