@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit {
 
     //get default location data
     async getDefaultLocationData(){
-         await this.weatherService.getWeatherSearchByCity(1259229).then(res=>{
+        const cityId = 1259229; //default city id
+         await this.weatherService.getWeatherSearchByCity(cityId).then(res=>{
             this.defaultCity = res;
             console.log("this.defaultCity",this.defaultCity);
             this.weather = this.defaultCity["weather"][0];
@@ -90,7 +91,7 @@ export class DashboardComponent implements OnInit {
     //select Auto Complete list city name
     SelectItem(item) {
         (<HTMLInputElement>document.getElementById("cityname")).value = item;
-          this.citynames =[];
+        this.citynames =[];
     }
 
     //Show hourly and daily filter data
